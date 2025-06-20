@@ -1,13 +1,12 @@
 import fastifyCors from "@fastify/cors";
 import { fastify } from "fastify";
-import { env } from "../../env";
 import {
   hasZodFastifySchemaValidationErrors,
-  jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
 import { uploadImageRoute } from "./routes/upload-image";
+import { transformSwaggerSchema } from "./transform-swagger-schema";
 import fastifyMultipart from "@fastify/multipart";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
@@ -42,7 +41,7 @@ server.register(fastifySwagger, {
       version: "1.0.0",
     },
   },
-  transform: jsonSchemaTransform,
+  transform: transformSwaggerSchema,
 });
 
 server.register(fastifySwaggerUi, {
